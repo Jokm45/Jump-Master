@@ -23,9 +23,9 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float height = Input.GetAxis("Horizontal");
-        inputDirection = new Vector2(height,1).normalized;
+        inputDirection = new Vector2(height, 1).normalized;
 
-        if (Input.GetKeyDown(KeyCode.Space)) 
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             isCharging = true;
             chargeTime = 0f;
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
                 verticalForceMultiplier
             ) * maxJumpForce * powerRatio;
 
-            rb.linearVelocity = Vector2.zero;
+            //rb.linearVelocity = Vector2.zero;
             rb.AddForce(jumpForce, ForceMode2D.Impulse);
 
             isCharging = false;
