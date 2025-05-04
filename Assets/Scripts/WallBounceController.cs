@@ -18,22 +18,24 @@ public class WallBounceController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Wall"))
         {
-            Debug.Log("벽에 부딪힘! velocity: " + rb.linearVelocity);
             ContactPoint2D contact = collision.GetContact(0);
-            Debug.Log("벽에 충돌! normal: " + contact.normal + ", velocity: " + rb.linearVelocity);
-            Vector2 normal = contact.normal.normalized;
-            Vector2 currentVel = rb.linearVelocity;
+            Vector2 normal = contact.normal;
+            Vector2 incomingVelocity = rb.linearVelocity;
 
-            float bounceFactor = (currentVel.y > 0f) ? upwardBounceFactor : downwardBounceFactor;
+            Vector2 reflected = Vector2.Reflect(incomingVelocity, normal).normalized;
+            float strength = incomingVelocity.magnitude * 0.8f;
 
-            // 벽에 박은 각도 기준 수평 반발 계산 (속도 * 반발 계수 * 방향)
-            float bounceX = -Vector2.Dot(currentVel, normal) * normal.x * bounceFactor;
-            bounceX = Mathf.Clamp(bounceX, -maxHorizontalBounce, maxHorizontalBounce);
+            // x 방향 보정
+            if (Mathf.Abs(reflected.x) < 0.1f)
+                reflected.x = (normal.x > 0) ? -1f : 1f;
 
-            // 수직 속도는 살짝 감쇠 (벽 마찰 효과)
-            float newY = currentVel.y * verticalFrictionFactor;
+            // y 방향 보정 (중요!)
+            if (reflected.y <= 0.1f)
+                reflected.y = 0.6f;
 
-            rb.linearVelocity = new Vector2(bounceX, newY);
+            rb.linearVelocity = reflected * Mathf.Max(strength, 4f);
+
+            Debug.Log("최종 반동 속도: " + rb.linearVelocity);
         }
     }
 }

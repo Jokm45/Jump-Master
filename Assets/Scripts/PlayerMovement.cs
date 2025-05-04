@@ -1,76 +1,115 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //public float moveSpeed = 2f;
-    //public float jumpForce = 5f;
+    public float combo;
+    public float multiplier = 1;
 
-    public float maxChargeTime;
-    public float maxJumpForce;
-    public float horizontalForceMultiplier;
-    public float verticalForceMultiplier;
+    Rigidbody2D rb;
+    Vector3 startPos;
 
-    private Rigidbody2D rb;
-    private float chargeTime = 0f;
-    private bool isCharging = false;
-    private Vector2 inputDirection;
+    float jumpForce;
+    float timeInComboRange;
 
     void Start()
     {
+        startPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        float height = Input.GetAxis("Horizontal");
-        inputDirection = new Vector2(height, 1).normalized;
+        multiplier = Mathf.Clamp(1 + combo / 10, 1, 2);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            isCharging = true;
-            chargeTime = 0f;
-        }
-
-        if (isCharging)
-        {
-            chargeTime = chargeTime + Time.deltaTime;
-            chargeTime = Mathf.Min(chargeTime, maxChargeTime);
-        }
-
-        if (Input.GetKeyUp(KeyCode.Space) && isCharging)
-        {
-            float powerRatio = chargeTime / maxChargeTime;
-
-            // x ÈûÀº ÀÛ°Ô, y ÈûÀº ¼¼°Ô
-            Vector2 jumpForce = new Vector2(
-                inputDirection.x * horizontalForceMultiplier,
-                verticalForceMultiplier
-            ) * maxJumpForce * powerRatio;
-
-            //rb.linearVelocity = Vector2.zero;
-            rb.AddForce(jumpForce, ForceMode2D.Impulse);
-
-            isCharging = false;
-        }
-
-        //// ÁÂ¿ì ÀÌµ¿
-        //float moveInput = Input.GetAxisRaw("Horizontal");
-        //rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
-
-        //// Á¡ÇÁ
-        //if (Input.GetKeyDown(KeyCode.Space) && !isJump)
-        //{
-        //    isJump = true;
-        //    rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        //}
+        PogoJump();
+        RotatePlayer();
+        Respawn();
     }
 
-    // ¶¥¿¡ ´ê¾Ò´ÂÁö È®ÀÎ
+    private void PogoJump()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            jumpForce = Mathf.Clamp(jumpForce + Time.deltaTime * 15, 0, 10);
+        }
+        else if (jumpForce > 0)
+        {
+            rb.AddForce(Vector2.up * jumpForce * 100f * multiplier);
+            StartCoroutine(ResetJump());
+
+            jumpForce = 0;
+
+            if (IsGrounded())
+            {
+                combo += 1;
+            }
+            else
+            {
+                combo = 0;
+            }
+        }
+
+        if (IsGrounded())
+        {
+            timeInComboRange += Time.deltaTime;
+        }
+        else
+        {
+            timeInComboRange = 0;
+        }
+
+        if (IsGrounded() && timeInComboRange > 0.25f)
+        {
+            combo = 0;
+        }
+    }
+
+    private void RotatePlayer()
+    {
+        Vector2 direction = rb.linearVelocity.normalized;
+        if (direction != Vector2.zero)
+        {
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+            rb.MoveRotation(Mathf.LerpAngle(rb.rotation, angle, Time.deltaTime * 10f));
+        }
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics2D.Raycast(transform.position, Vector2.down, 1f, LayerMask.GetMask("Ground"));
+    }
+
+    private void Respawn()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            transform.position = startPos;
+            transform.rotation = Quaternion.identity;
+        }
+        else if (Input.GetKeyDown(KeyCode.T))
+        {
+            startPos = transform.position;
+        }
+    }
+
+    private IEnumerator ResetJump()
+    {
+        yield return new WaitForSeconds(0.2f);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (!IsGrounded() && collision.gameObject.CompareTag("Wall"))
         {
-            isCharging = false;
+            ContactPoint2D contact = collision.contacts[0];
+            Vector2 normal = contact.normal;
+
+            if (Mathf.Abs(normal.x) > 0.5f)
+            {
+                float bounceForce = 600f;
+                rb.AddForce(new Vector2(normal.x * bounceForce, 0f));
+            }
         }
     }
 }
