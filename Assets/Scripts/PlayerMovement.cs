@@ -2,19 +2,22 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 2f;                      // 좌우 이동 속도
-    public float maxChargeTime = 1.5f;                // 점프 충전 최대 시간
-    public float maxJumpForce = 25f;                  // 최대 점프 힘
-    public float horizontalForceMultiplier = 1f;      // 좌우 점프 힘 비율
-    public float verticalForceMultiplier = 1.5f;      // 위쪽 점프 힘 비율
+    public float moveSpeed = 3f;    // 좌우 이동 속도
+    public float maxChargeTime = 1f;    // 점프 충전 최대 시간
+    public float maxJumpForce = 7f; // 최대 점프 힘
+    public float horizontalForceMultiplier = 1f;    // 좌우 점프 힘 비율
+    public float verticalForceMultiplier = 2f;  // 위쪽 점프 힘 비율
+    public float bounceForceMultiplier = 1.0f;  // 튕김 세기 계수 (기본값: 1.0)
 
     private Rigidbody2D rb;
     private float chargeTime = 0f;
     private bool isCharging = false;
     private bool isGrounded = false;
-    private bool isJumping = false;                   // 점프 상태
-    private bool hasBounced = false;                  // 벽에 튕긴 적 있는지
+    private bool isJumping = false;
+
     private Vector2 inputDirection = Vector2.up;
+    private Vector2 jumpStartPosition;
+    private Vector2 lastJumpForce;
 
     void Start()
     {
@@ -29,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
             isCharging = true;
             chargeTime = 0f;
             inputDirection = Vector2.up;
+            rb.linearVelocity = Vector2.zero; // 이동 중이더라도 그 자리에 딱 멈추기
         }
 
         // 점프 충전 중: 방향키로 방향 설정
@@ -54,13 +58,15 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
             rb.AddForce(jumpForce, ForceMode2D.Impulse);
 
+            jumpStartPosition = transform.position;
+            lastJumpForce = jumpForce;
+
             isCharging = false;
             isGrounded = false;
             isJumping = true;
-            hasBounced = false;
         }
 
-        // 좌우 이동 (점프 충전 중이 아니고, 땅에 있을 때만)
+        // 좌우 이동 (점프 중이 아니고, 땅에 있을 때만)
         if (!isCharging && isGrounded)
         {
             float moveInput = Input.GetAxisRaw("Horizontal");
@@ -68,36 +74,44 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // 충돌 처리
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 바닥에 닿았을 때
+        // 바닥 감지
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isGrounded = true;
-            isCharging = false;
-            isJumping = false;
-            hasBounced = false;
+            // 충돌 방향(normal)이 위쪽을 향할 때만 지면으로 인정
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                if (contact.normal.y > 0.5f)
+                {
+                    isGrounded = true;
+                    isCharging = false;
+                    isJumping = false;
+                    break;
+                }
+            }
         }
 
-        // 벽에 닿았을 때 (점프 중이고 아직 튕긴 적 없다면)
-        if (collision.gameObject.CompareTag("Wall") && isJumping && !hasBounced)
+        // 벽 튕김
+        if (collision.gameObject.CompareTag("Wall") && isJumping)
         {
-            Vector2 bounceDir;
+            Vector2 velocity = rb.linearVelocity.magnitude < 0.1f ? lastJumpForce : rb.linearVelocity;
+            Vector2 normal = collision.contacts[0].normal;
 
-            // 왼쪽 벽에 부딪힘 → 오른쪽 위로 튕김
-            if (transform.position.x < collision.transform.position.x)
-                bounceDir = new Vector2(1f, 1f).normalized;
-            else // 오른쪽 벽에 부딪힘 → 왼쪽 위로 튕김
-                bounceDir = new Vector2(-1f, 1f).normalized;
+            Vector2 bounceDir = Vector2.Reflect(velocity.normalized, normal); // 반사 방향 계산
+            Vector2 contactPoint = collision.contacts[0].point;
+            float dir = transform.position.x < contactPoint.x ? -1f : 1f; // ← 오른쪽 벽에 부딪히면 왼쪽(-1), 왼쪽 벽이면 오른쪽(+1)
+            bounceDir.x = dir * 0.5f;
+            bounceDir = bounceDir.normalized;
 
-            float bounceForce = 5f; // 전체 튕김 세기 (X+Y 합쳐서 한 번에 줌)
+            // 튕김 세기 계산
+            float movedDistance = Vector2.Distance(jumpStartPosition, transform.position);
+            float intendedDistance = lastJumpForce.magnitude;
+            float closeRatio = Mathf.Clamp01(1f - (movedDistance / intendedDistance));
+            float bouncePower = Mathf.Max(1f, lastJumpForce.magnitude * closeRatio * bounceForceMultiplier);
 
             rb.linearVelocity = Vector2.zero;
-            rb.AddForce(bounceDir * bounceForce, ForceMode2D.Impulse);
-
-            hasBounced = true;
-            Debug.Log("튕김 방향: " + bounceDir * bounceForce);
+            rb.AddForce(bounceDir * bouncePower, ForceMode2D.Impulse);
         }
     }
 }
