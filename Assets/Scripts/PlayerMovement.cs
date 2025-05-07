@@ -4,7 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 3f;    // 좌우 이동 속도
     public float maxChargeTime = 1f;    // 점프 충전 최대 시간
-    public float maxJumpForce = 7f; // 최대 점프 힘
+    public float maxJumpForce = 8f; // 최대 점프 힘
     public float horizontalForceMultiplier = 1f;    // 좌우 점프 힘 비율
     public float verticalForceMultiplier = 2f;  // 위쪽 점프 힘 비율
     public float bounceForceMultiplier = 1.0f;  // 튕김 세기 계수 (기본값: 1.0)
@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
             Vector2 bounceDir = Vector2.Reflect(velocity.normalized, normal); // 반사 방향 계산
             Vector2 contactPoint = collision.contacts[0].point;
             float dir = transform.position.x < contactPoint.x ? -1f : 1f; // ← 오른쪽 벽에 부딪히면 왼쪽(-1), 왼쪽 벽이면 오른쪽(+1)
-            bounceDir.x = dir * 0.5f;
+            bounceDir.x = dir * 0.5f; // x축 보정
             bounceDir = bounceDir.normalized;
 
             // 튕김 세기 계산
