@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     public float bounceForceMultiplier = 1.0f;  // 튕김 세기 계수 (기본값: 1.0)
 
     private Rigidbody2D rb;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+
     private float chargeTime = 0f;
     private bool isCharging = false;
     private bool isGrounded = false;
@@ -22,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -32,10 +37,10 @@ public class PlayerMovement : MonoBehaviour
             isCharging = true;
             chargeTime = 0f;
             inputDirection = Vector2.up;
-            rb.linearVelocity = Vector2.zero; // 이동 중이더라도 그 자리에 딱 멈추기
+            rb.linearVelocity = Vector2.zero;
         }
 
-        // 점프 충전 중: 방향키로 방향 설정
+        // 충전 중 방향 설정
         if (isCharging)
         {
             chargeTime += Time.deltaTime;
@@ -66,12 +71,23 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
         }
 
-        // 좌우 이동 (점프 중이 아니고, 땅에 있을 때만)
+        // 이동 (점프 중이 아니고, 땅에 있을 때만)
         if (!isCharging && isGrounded)
         {
             float moveInput = Input.GetAxisRaw("Horizontal");
             rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
         }
+
+        // 방향 입력에 따라 스프라이트 반전 (이동, 충전할 때)
+        float inputX = Input.GetAxisRaw("Horizontal");
+        if (inputX != 0)
+            spriteRenderer.flipX = inputX < 0;
+
+        // 애니메이션 파라미터 업데이트
+        animator.SetBool("isCharging", isCharging);
+        animator.SetBool("isJumping", isJumping);
+        animator.SetBool("isFalling", rb.linearVelocity.y < -0.1f && !isGrounded);
+        animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0.1f && isGrounded);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -100,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
 
             Vector2 bounceDir = Vector2.Reflect(velocity.normalized, normal); // 반사 방향 계산
             Vector2 contactPoint = collision.contacts[0].point;
-            float dir = transform.position.x < contactPoint.x ? -1f : 1f; // ← 오른쪽 벽에 부딪히면 왼쪽(-1), 왼쪽 벽이면 오른쪽(+1)
+            float dir = transform.position.x < contactPoint.x ? -1f : 1f; // 오른쪽 벽에 부딪히면 왼쪽(-1), 왼쪽 벽이면 오른쪽(+1)
             bounceDir.x = dir * 0.5f; // x축 보정
             bounceDir = bounceDir.normalized;
 
