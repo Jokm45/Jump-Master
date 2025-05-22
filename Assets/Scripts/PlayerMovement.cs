@@ -53,7 +53,8 @@ public class PlayerMovement : MonoBehaviour
         // 점프 실행
         if (Input.GetKeyUp(KeyCode.Space) && isCharging)
         {
-            float powerRatio = chargeTime / maxChargeTime;
+            float minRatio = 0.4f; // 최소 점프 비율 (40%)
+            float powerRatio = Mathf.Max(minRatio, chargeTime / maxChargeTime);
 
             Vector2 jumpForce = new Vector2(
                 inputDirection.x * horizontalForceMultiplier,
