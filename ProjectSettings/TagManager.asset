@@ -43,6 +43,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackGround
+    uniqueID: 3870510811
+    locked: 0
+  - name: MiddleGround
+    uniqueID: 1485812243
+    locked: 0
+  - name: Plant
+    uniqueID: 2330787881
+    locked: 0
+  - name: Ground
+    uniqueID: 3812256273
+    locked: 0
   - name: Effects
     uniqueID: 1036312811
     locked: 0
