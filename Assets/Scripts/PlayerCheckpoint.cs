@@ -3,23 +3,32 @@ using UnityEngine;
 public class PlayerCheckpoint : MonoBehaviour
 {
     private Vector2? highestCheckpointPos = null;
+    private Checkpoint activeCheckpoint = null;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Checkpoint"))
         {
-            Vector2 newCheckpointPos = other.GetComponent<Checkpoint>().position;
+            Checkpoint checkpoint = other.GetComponent<Checkpoint>();
+            Vector2 newCheckpointPos = checkpoint.position;
 
-            // 처음 저장이거나 더 높은 위치면 저장
             if (highestCheckpointPos == null || newCheckpointPos.y > highestCheckpointPos.Value.y)
             {
                 highestCheckpointPos = newCheckpointPos;
+
+                // 이전 체크포인트 연기 끄기
+                if (activeCheckpoint != null)
+                    activeCheckpoint.SetActiveSmoke(false);
+
+                // 새 체크포인트 연기 켜기
+                checkpoint.SetActiveSmoke(true);
+                activeCheckpoint = checkpoint;
+
                 Debug.Log("체크포인트 저장됨: " + newCheckpointPos);
             }
         }
     }
 
-    // 예: R 키로 저장된 위치로 순간이동
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R) && highestCheckpointPos != null)
