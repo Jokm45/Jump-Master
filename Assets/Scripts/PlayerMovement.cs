@@ -8,10 +8,12 @@ public class PlayerMovement : MonoBehaviour
     public float horizontalForceMultiplier = 1f;    // 좌우 점프 힘 비율
     public float verticalForceMultiplier = 2f;  // 위쪽 점프 힘 비율
     public float bounceForceMultiplier = 1.0f;  // 튕김 세기 계수 (기본값: 1.0)
-
+    
+    private PlayerStun playerStun;
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+
 
     private float chargeTime = 0f;
     private bool isCharging = false;
@@ -27,10 +29,18 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        playerStun = GetComponent<PlayerStun>();
     }
 
     void Update()
     {
+        // 기절 중이면 점프 충전 중지
+        if (playerStun != null && playerStun.IsStunned())
+        {
+            isCharging = false; 
+            return;              
+        }
         // 점프 충전 시작
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
