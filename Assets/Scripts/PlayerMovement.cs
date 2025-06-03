@@ -19,18 +19,18 @@ public class PlayerMovement : MonoBehaviour
     private bool isCharging = false;
     private bool isGrounded = false;
     private bool isJumping = false;
+    private bool canJumpFromItem = false;
+    private bool inSideOnlyZone = false;
 
     private Vector2 inputDirection = Vector2.up;
     private Vector2 jumpStartPosition;
     private Vector2 lastJumpForce;
 
-    private bool inSideOnlyZone = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
         playerStun = GetComponent<PlayerStun>();
     }
 
@@ -49,8 +49,9 @@ public class PlayerMovement : MonoBehaviour
             isCharging = false;
             return;
         }
+
         // 점프 충전 시작
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || canJumpFromItem) && !isJumping)
         {
             isCharging = true;
             chargeTime = 0f;
@@ -88,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
             isCharging = false;
             isGrounded = false;
             isJumping = true;
+            canJumpFromItem = false;
         }
 
         // 이동 (점프 중이 아니고, 땅에 있을 때만)
@@ -122,6 +124,8 @@ public class PlayerMovement : MonoBehaviour
                     isGrounded = true;
                     isCharging = false;
                     isJumping = false;
+                    canJumpFromItem = false;
+                    animator.Play("Idle"); // 착지 시 Idle 상태로 전환
                     break;
                 }
             }
@@ -159,5 +163,11 @@ public class PlayerMovement : MonoBehaviour
     public void ExitSideOnlyZone()
     {
         inSideOnlyZone = false;
+    }
+
+    public void SetJumpReady()
+    {
+        canJumpFromItem = true;
+        isJumping = false;
     }
 }

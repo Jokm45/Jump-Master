@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 64f86a54aedf140e9b24babbac319617
+guid: 14a999e6bc2c34f368b03649dead9d94
 AssetOrigin:
   serializedVersion: 1
   productId: 108124
   packageName: Sunny Land Forest
   packageVersion: 1.0
-  assetPath: Assets/Sunny Land Forest Assets/Artwork/Sprites/misc/carrot/carrot-4.png
+  assetPath: Assets/Sunny Land Forest Assets/Artwork/Sprites/misc/chest/chest-1.png
   uploadId: 221328
 TextureImporter:
   internalIDToNameTable: []
@@ -55,7 +55,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -86,7 +86,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 128
@@ -99,7 +99,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 128
