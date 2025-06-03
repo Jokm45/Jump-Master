@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5146062385457291598}
   - component: {fileID: 4168693610533721018}
   - component: {fileID: 2148427435186231739}
-  - component: {fileID: 8912090573886424996}
   - component: {fileID: 480180258932889417}
+  - component: {fileID: 8912090573886424996}
   m_Layer: 0
   m_Name: Stalactite
   m_TagString: Untagged
@@ -117,18 +117,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8912090573886424996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8459513655813828574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdcadd281304f8540994c3139691a630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &480180258932889417
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -175,3 +163,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.34, y: 0.57}
   m_EdgeRadius: 0
+--- !u!114 &8912090573886424996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8459513655813828574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdcadd281304f8540994c3139691a630, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
