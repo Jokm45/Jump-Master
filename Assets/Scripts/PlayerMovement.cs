@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float horizontalForceMultiplier = 1f;    // 좌우 점프 힘 비율
     public float verticalForceMultiplier = 2f;  // 위쪽 점프 힘 비율
     public float bounceForceMultiplier = 1.0f;  // 튕김 세기 계수 (기본값: 1.0)
-    
+
     private PlayerStun playerStun;
     private Rigidbody2D rb;
     private Animator animator;
@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 jumpStartPosition;
     private Vector2 lastJumpForce;
 
+    private bool inSideOnlyZone = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,11 +36,18 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (inSideOnlyZone)
+        {
+            float moveInput = Input.GetAxisRaw("Horizontal");
+            rb.linearVelocity = new Vector2(moveInput * moveSpeed, 0f); // Y속도 완전 고정
+            return; // 다른 입력 차단 (점프 등)
+        }
+
         // 기절 중이면 점프 충전 중지
         if (playerStun != null && playerStun.IsStunned())
         {
-            isCharging = false; 
-            return;              
+            isCharging = false;
+            return;
         }
         // 점프 충전 시작
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -140,5 +148,16 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
             rb.AddForce(bounceDir * bouncePower, ForceMode2D.Impulse);
         }
+    }
+    public void EnterSideOnlyZone()
+    {
+        inSideOnlyZone = true;
+        isCharging = false;
+        isJumping = false;
+    }
+
+    public void ExitSideOnlyZone()
+    {
+        inSideOnlyZone = false;
     }
 }
