@@ -2,18 +2,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 3f;    // 좌우 이동 속도
-    public float maxChargeTime = 1f;    // 점프 충전 최대 시간
+    public float moveSpeed = 3f; // 좌우 이동 속도
+    public float maxChargeTime = 1f; // 점프 충전 최대 시간
     public float maxJumpForce = 8f; // 최대 점프 힘
-    public float horizontalForceMultiplier = 1f;    // 좌우 점프 힘 비율
-    public float verticalForceMultiplier = 2f;  // 위쪽 점프 힘 비율
-    public float bounceForceMultiplier = 1.0f;  // 튕김 세기 계수 (기본값: 1.0)
+    public float horizontalForceMultiplier = 1f; // 좌우 점프 힘 비율
+    public float verticalForceMultiplier = 2f; // 위쪽 점프 힘 비율
+    public float bounceForceMultiplier = 1.0f; // 튕김 세기 계수 (기본값: 1.0)
 
+    public AudioClip jumpSound;
+    public AudioClip stunnedSound;
+
+    private AudioSource playerAudio;
     private PlayerStun playerStun;
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-
 
     private float chargeTime = 0f;
     private bool isCharging = false;
@@ -21,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     private bool canJumpFromItem = false;
     private bool inSideOnlyZone = false;
+    private bool wasStunned = false;
 
     private Vector2 inputDirection = Vector2.up;
     private Vector2 jumpStartPosition;
@@ -32,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerStun = GetComponent<PlayerStun>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -46,8 +51,17 @@ public class PlayerMovement : MonoBehaviour
         // 기절 중이면 점프 충전 중지
         if (playerStun != null && playerStun.IsStunned())
         {
+            if (!wasStunned)
+            {
+                playerAudio.PlayOneShot(stunnedSound);
+                wasStunned = true;
+            }
             isCharging = false;
             return;
+        }
+        else
+        {
+            wasStunned = false;
         }
 
         // 점프 충전 시작
@@ -82,6 +96,8 @@ public class PlayerMovement : MonoBehaviour
 
             rb.linearVelocity = Vector2.zero;
             rb.AddForce(jumpForce, ForceMode2D.Impulse);
+
+            playerAudio.PlayOneShot(jumpSound);
 
             jumpStartPosition = transform.position;
             lastJumpForce = jumpForce;
