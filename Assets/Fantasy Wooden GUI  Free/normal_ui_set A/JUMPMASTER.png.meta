@@ -1,34 +1,34 @@
 fileFormatVersion: 2
-guid: 487fd04ce5be59e4b95e3cfd0a6f8f3b
+guid: 56dd2b63296f0e64c8f21d4581dcd936
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 370983149333994082
-    second: JUMPMASTER_transparent_0
+      213: -3438555391594764066
+    second: JUMPMASTER_0
   - first:
-      213: -3676983691634084618
-    second: JUMPMASTER_transparent_1
+      213: 5225548056363437697
+    second: JUMPMASTER_1
   - first:
-      213: 2104357728624335337
-    second: JUMPMASTER_transparent_2
+      213: -1714485021985082651
+    second: JUMPMASTER_2
   - first:
-      213: -6087624440918736665
-    second: JUMPMASTER_transparent_3
+      213: 8241334457603508972
+    second: JUMPMASTER_3
   - first:
-      213: -7149512547001731194
-    second: JUMPMASTER_transparent_4
+      213: 2419915482146475798
+    second: JUMPMASTER_4
   - first:
-      213: -3865709097290320673
-    second: JUMPMASTER_transparent_5
+      213: -4944918165458869541
+    second: JUMPMASTER_5
   - first:
-      213: -1528160923548467574
-    second: JUMPMASTER_transparent_6
+      213: 3216123698270574306
+    second: JUMPMASTER_6
   - first:
-      213: 3544776671674706935
-    second: JUMPMASTER_transparent_7
+      213: 6188699783457796346
+    second: JUMPMASTER_7
   - first:
-      213: -8064384830883273829
-    second: JUMPMASTER_transparent_8
+      213: -7179679870694484691
+    second: JUMPMASTER_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -99,7 +99,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -124,11 +124,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: JUMPMASTER_transparent_0
+      name: JUMPMASTER_0
       rect:
         serializedVersion: 2
         x: 73
-        y: 299
+        y: 24
         width: 179
         height: 210
       alignment: 0
@@ -139,18 +139,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 26a55b1753ff52500800000000000000
-      internalID: 370983149333994082
+      spriteID: ed86d7fe61cc740d0800000000000000
+      internalID: -3438555391594764066
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JUMPMASTER_transparent_1
+      name: JUMPMASTER_1
       rect:
         serializedVersion: 2
         x: 173
-        y: 509
+        y: 234
         width: 294
         height: 213
       alignment: 0
@@ -161,18 +161,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6f4fe3f50dab8fcc0800000000000000
-      internalID: -3676983691634084618
+      spriteID: 18e86486540e48840800000000000000
+      internalID: 5225548056363437697
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JUMPMASTER_transparent_2
+      name: JUMPMASTER_2
       rect:
         serializedVersion: 2
         x: 469
-        y: 509
+        y: 234
         width: 213
         height: 213
       alignment: 0
@@ -183,18 +183,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9e9500f643e243d10800000000000000
-      internalID: 2104357728624335337
+      spriteID: 5e2f9dbc4fce438e0800000000000000
+      internalID: -1714485021985082651
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JUMPMASTER_transparent_3
+      name: JUMPMASTER_3
       rect:
         serializedVersion: 2
         x: 681
-        y: 508
+        y: 233
         width: 154
         height: 212
       alignment: 0
@@ -205,18 +205,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7e08d0913d9648ba0800000000000000
-      internalID: -6087624440918736665
+      spriteID: ceac4a4560a1f5270800000000000000
+      internalID: 8241334457603508972
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JUMPMASTER_transparent_4
+      name: JUMPMASTER_4
       rect:
         serializedVersion: 2
         x: 252
-        y: 299
+        y: 24
         width: 159
         height: 207
       alignment: 0
@@ -227,18 +227,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 68773ced734d7cc90800000000000000
-      internalID: -7149512547001731194
+      spriteID: 61f0fcb4f44459120800000000000000
+      internalID: 2419915482146475798
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JUMPMASTER_transparent_5
+      name: JUMPMASTER_5
       rect:
         serializedVersion: 2
         x: 408
-        y: 299
+        y: 24
         width: 128
         height: 208
       alignment: 0
@@ -249,18 +249,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fd4b303be0e3a5ac0800000000000000
-      internalID: -3865709097290320673
+      spriteID: bd2a278b02f106bb0800000000000000
+      internalID: -4944918165458869541
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JUMPMASTER_transparent_6
+      name: JUMPMASTER_6
       rect:
         serializedVersion: 2
         x: 536
-        y: 299
+        y: 24
         width: 143
         height: 208
       alignment: 0
@@ -271,18 +271,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a8eb2409cb1eacae0800000000000000
-      internalID: -1528160923548467574
+      spriteID: 2e6122db677f1ac20800000000000000
+      internalID: 3216123698270574306
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JUMPMASTER_transparent_7
+      name: JUMPMASTER_7
       rect:
         serializedVersion: 2
         x: 677
-        y: 299
+        y: 24
         width: 133
         height: 208
       alignment: 0
@@ -293,18 +293,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7fb23431a93913130800000000000000
-      internalID: 3544776671674706935
+      spriteID: af0f986f9ada2e550800000000000000
+      internalID: 6188699783457796346
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JUMPMASTER_transparent_8
+      name: JUMPMASTER_8
       rect:
         serializedVersion: 2
         x: 807
-        y: 299
+        y: 24
         width: 147
         height: 208
       alignment: 0
@@ -315,8 +315,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b93672729bc851090800000000000000
-      internalID: -8064384830883273829
+      spriteID: d259b3a7237ac5c90800000000000000
+      internalID: -7179679870694484691
       vertices: []
       indices: 
       edges: []
@@ -335,15 +335,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      JUMPMASTER_transparent_0: 370983149333994082
-      JUMPMASTER_transparent_1: -3676983691634084618
-      JUMPMASTER_transparent_2: 2104357728624335337
-      JUMPMASTER_transparent_3: -6087624440918736665
-      JUMPMASTER_transparent_4: -7149512547001731194
-      JUMPMASTER_transparent_5: -3865709097290320673
-      JUMPMASTER_transparent_6: -1528160923548467574
-      JUMPMASTER_transparent_7: 3544776671674706935
-      JUMPMASTER_transparent_8: -8064384830883273829
+      JUMPMASTER_0: -3438555391594764066
+      JUMPMASTER_1: 5225548056363437697
+      JUMPMASTER_2: -1714485021985082651
+      JUMPMASTER_3: 8241334457603508972
+      JUMPMASTER_4: 2419915482146475798
+      JUMPMASTER_5: -4944918165458869541
+      JUMPMASTER_6: 3216123698270574306
+      JUMPMASTER_7: 6188699783457796346
+      JUMPMASTER_8: -7179679870694484691
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
