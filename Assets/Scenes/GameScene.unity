@@ -14473,6 +14473,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1264622039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1264622041}
+  - component: {fileID: 1264622040}
+  m_Layer: 0
+  m_Name: ItemSpwaner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1264622040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264622039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c73b216d1830b62458e159dee6b94fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poisonPrefab: {fileID: 8733237829441682896, guid: 9d16ee45144ec614ab1c985a4424f1a6, type: 3}
+  antidotePrefab: {fileID: 4512289041983316759, guid: f993ca30366b0e44fbdcd67eceb0e3e9, type: 3}
+  poisonSpawnPosition: {x: -8.16, y: 1.52, z: 0}
+  antidoteSpawnPosition: {x: -2.47, y: 4.43, z: 0}
+--- !u!4 &1264622041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264622039}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.47, y: 4.43, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1282465406
 GameObject:
   m_ObjectHideFlags: 0
@@ -28599,6 +28647,7 @@ MonoBehaviour:
   horizontalForceMultiplier: 1
   verticalForceMultiplier: 2
   bounceForceMultiplier: 1
+  poisonSpeed: 1
   jumpSound: {fileID: 8300000, guid: 75980586247bd66478c9b76421d37e32, type: 3}
   stunnedSound: {fileID: 8300000, guid: 22d4f3728309d274faa3560fa73b5523, type: 3}
 --- !u!1 &4996551440782624161
@@ -29127,7 +29176,7 @@ Transform:
   m_GameObject: {fileID: 7835073412315271972}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.55, y: 289.3, z: 0}
+  m_LocalPosition: {x: -5.91, y: 2.88, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29423,3 +29472,4 @@ SceneRoots:
   - {fileID: 109280529}
   - {fileID: 212751881}
   - {fileID: 322295311}
+  - {fileID: 1264622041}
