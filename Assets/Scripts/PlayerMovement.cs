@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     public float horizontalForceMultiplier = 1f; // 좌우 점프 힘 비율
     public float verticalForceMultiplier = 2f; // 위쪽 점프 힘 비율
     public float bounceForceMultiplier = 1.0f; // 튕김 세기 계수 (기본값: 1.0)
-    public float poisonSpeed = 1f; //독약먹으면 속도
 
     public AudioClip jumpSound;
     public AudioClip stunnedSound;
@@ -187,9 +186,4 @@ public class PlayerMovement : MonoBehaviour
         canJumpFromItem = true;
         isJumping = false;
     }
-    public void SetMoveSpeed(float newSpeed)
-    {
-        moveSpeed = newSpeed;
-    }
-
 }

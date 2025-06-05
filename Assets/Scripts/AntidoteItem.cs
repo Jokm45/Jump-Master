@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class AntidoteItem : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-
-            PlayerMovement move = collision.gameObject.GetComponent<PlayerMovement>();
+            PlayerMovement move = other.GetComponent<PlayerMovement>();
             if (move != null)
             {
                 move.moveSpeed = 3f;
@@ -17,5 +16,4 @@ public class AntidoteItem : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }

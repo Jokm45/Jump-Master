@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public GameObject clearPanel;
     public TextMeshProUGUI playTimeText_UI;
     public TextMeshProUGUI playTimeText_Clear;
-    public Button retryButton;
 
     private float playTime;
     private bool isCleared = false;
@@ -35,8 +34,8 @@ public class GameManager : MonoBehaviour
         int minutes = (totalSeconds % 3600) / 60;
         int seconds = totalSeconds % 60;
 
-        measureTime = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
-        playTimeText_UI.text = measureTime;
+        playTimeText_UI.text = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+        measureTime = $"{hours / 10} {hours % 10}  :  {minutes / 10} {minutes % 10}  :  {seconds / 10} {seconds % 10}";
     }
 
     public void TriggerClear()
@@ -46,8 +45,13 @@ public class GameManager : MonoBehaviour
         playTimeText_Clear.text = measureTime;
     }
 
-    public void RestartScene()
+    public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToHome()
+    {
+        SceneManager.LoadScene("MainUI");
     }
 }
