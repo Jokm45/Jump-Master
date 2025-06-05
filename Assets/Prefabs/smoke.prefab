@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3050875668905057115}
   - component: {fileID: 851708003294229469}
   m_Layer: 0
-  m_Name: smokem6
+  m_Name: smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
