@@ -3885,6 +3885,7 @@ MonoBehaviour:
   clearPanel: {fileID: 1708479299}
   playTimeText_UI: {fileID: 1692574302}
   playTimeText_Clear: {fileID: 1372947787}
+  playerTransform: {fileID: 8512654528618372044}
 --- !u!4 &425761862
 Transform:
   m_ObjectHideFlags: 0
