@@ -164,11 +164,14 @@ public class PlayerMovement : MonoBehaviour
             // 이동 거리와 원래 점프 거리로 튕김 세기 결정
             float movedDistance = Vector2.Distance(jumpStartPosition, transform.position); // 실제 이동 거리
             float intendedDistance = lastJumpForce.magnitude; // 원래 점프 힘의 크기 (의도된 이동 거리)
-            float closeRatio = Mathf.Clamp01(1f - (movedDistance / intendedDistance)); // 실제 이동이 짧을수록 튕김 세기를 강하게 유지하기 위한 비율 계산 (0~1)
-            float bouncePower = Mathf.Max(1f, lastJumpForce.magnitude * closeRatio * bounceForceMultiplier); // 튕김 세기 계산 - 가까울수록 강함 (최소 1)
+
+            // 실제 이동이 짧을수록 튕김 세기를 강하게 유지하기 위한 비율 계산 (0~1)
+            float closeRatio = Mathf.Clamp01(1f - (movedDistance / intendedDistance));
+            // 튕김 세기 계산 - 가까울수록 강함 (최소 1)
+            float bouncePower = Mathf.Max(1f, lastJumpForce.magnitude * closeRatio * bounceForceMultiplier);
 
             rb.linearVelocity = Vector2.zero; // 기존 속도를 0으로 초기화
-            rb.AddForce(bounceDir * bouncePower, ForceMode2D.Impulse); // 계산된 반사 방향과 세기를 적용해 즉시 튕김 힘 적용
+            rb.AddForce(bounceDir * bouncePower, ForceMode2D.Impulse); // 계산된 반사 방향과 세기를 적용해 튕김 힘 작용
         }
     }
 
